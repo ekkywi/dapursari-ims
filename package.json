@@ -1,0 +1,20 @@
+{
+  "name": "dapursari-ims",
+  "private": true,
+  "packageManager": "pnpm@11.17.0",
+  "scripts": {
+    "dev": "pnpm --parallel --filter @dapursari/web --filter @dapursari/api dev",
+    "build": "pnpm --filter @dapursari/types build && pnpm --filter @dapursari/database build && pnpm --filter @dapursari/api build && pnpm --filter @dapursari/web build",
+    "lint": "pnpm -r --filter @dapursari/web --filter @dapursari/api --filter @dapursari/types --filter @dapursari/database lint",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,md}\"",
+    "db:generate": "pnpm --filter @dapursari/database generate",
+    "db:migrate": "pnpm --filter @dapursari/database migrate:dev",
+    "db:studio": "pnpm --filter @dapursari/database studio",
+    "types:build": "pnpm --filter @dapursari/types build"
+  },
+  "devDependencies": {
+    "prettier": "^3.5.3",
+    "typescript": "^5.8.3"
+  }
+}

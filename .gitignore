@@ -1,0 +1,40 @@
+# dependencies
+node_modules
+.pnpm-store
+.pnpm-store/**
+
+# builds
+dist
+.next
+out
+build
+*.tsbuildinfo
+
+# env
+.env
+.env.*
+!.env.example
+
+# logs / debug
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.log
+
+# IDE / OS
+.DS_Store
+.idea
+*.swp
+.turbo
+
+# prisma
+packages/database/prisma/*.db
+packages/database/prisma/*.db-journal
+
+# coverage / test
+coverage
+
+# personal local notes (not for version control)
+docs/NEXT-STEPS.md
+docs/NEXT-STEPS/**
