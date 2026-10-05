@@ -25,5 +25,91 @@ model User {
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 
+  stockIns StockIn[]
+
   @@map("users")
+}
+
+// ---------------------------------------------------------------------------
+// Modul 2 — Manajemen Gudang
+// ---------------------------------------------------------------------------
+
+model Supplier {
+  id        String   @id @default(cuid())
+  name      String
+  phone     String?
+  email     String?
+  address   String?
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  stockIns StockIn[]
+
+  @@map("suppliers")
+}
+
+model Category {
+  id        String   @id @default(cuid())
+  name      String   @unique
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  items Item[]
+
+  @@map("categories")
+}
+
+model Unit {
+  id        String   @id @default(cuid())
+  name      String   @unique
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  items Item[]
+
+  @@map("units")
+}
+
+model Item {
+  id             String   @id @default(cuid())
+  code           String   @unique
+  name           String
+  categoryId     String
+  unitId         String
+  minStock       Decimal  @default(0) @db.Decimal(12, 2)
+  warehouseStock Decimal  @default(0) @db.Decimal(12, 2)
+  isActive       Boolean  @default(true)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  category Category  @relation(fields: [categoryId], references: [id])
+  unit     Unit      @relation(fields: [unitId], references: [id])
+  stockIns StockIn[]
+
+  @@index([categoryId])
+  @@index([unitId])
+  @@map("items")
+}
+
+model StockIn {
+  id          String   @id @default(cuid())
+  supplierId  String
+  itemId      String
+  quantity    Decimal  @db.Decimal(12, 2)
+  date        DateTime
+  note        String?
+  createdById String
+  createdAt   DateTime @default(now())
+
+  supplier  Supplier @relation(fields: [supplierId], references: [id])
+  item      Item     @relation(fields: [itemId], references: [id])
+  createdBy User     @relation(fields: [createdById], references: [id])
+
+  @@index([supplierId])
+  @@index([itemId])
+  @@index([date])
+  @@map("stock_ins")
 }

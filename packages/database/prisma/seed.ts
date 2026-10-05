@@ -20,6 +20,27 @@ async function main() {
   });
 
   console.log('Seeder Super Admin:', email);
+
+  // Modul 2 — master data gudang
+  const categories = [
+    'Sayuran',
+    'Buah',
+    'Daging & Unggas',
+    'Seafood',
+    'Bumbu & Rempah',
+    'Bahan Kering',
+    'Minuman',
+  ];
+  const units = ['kg', 'gram', 'liter', 'ml', 'pcs', 'pack', 'ikat', 'karton'];
+
+  for (const name of categories) {
+    await prisma.category.upsert({ where: { name }, update: {}, create: { name } });
+  }
+  for (const name of units) {
+    await prisma.unit.upsert({ where: { name }, update: {}, create: { name } });
+  }
+
+  console.log(`Seeder kategori (${categories.length}) & satuan (${units.length})`);
 }
 
 main()
@@ -28,5 +49,5 @@ main()
     process.exit(1);
   })
   .finally(async () => {
-    await prisma.$disconnect;
+    await prisma.$disconnect();
   });
