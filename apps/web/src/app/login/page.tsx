@@ -4,7 +4,7 @@ import { useState, type FormEvent } from 'react';
 import { ApiError, apiFetch } from '@/lib/api';
 import type { LoginRequest, LoginResponse } from '@dapursari/types';
 import { setToken } from '@/lib/auth-storage';
-import { useRouter } from 'next/dist/client/components/navigation';
+import { useRouter } from 'next/navigation';
 
 type LoginResult = Omit<LoginResponse, 'refreshToken'>;
 
@@ -34,7 +34,7 @@ export default function LoginPage() {
     }
   }
   return (
-    <main className="mx auto flex min-h-screen max-w-sm flex-col justify-center gap-4 px-6">
+    <main className="mx-auto flex min-h-screen max-w-sm flex-col justify-center gap-4 px-6">
       <h1 className="text-2xl font-semibold">Masuk</h1>
       <form onSubmit={handleSubmit} className="flex flex-col gap-3">
         <input
@@ -57,7 +57,7 @@ export default function LoginPage() {
         <button
           type="submit"
           disabled={loading}
-          className="rounded-md bg-teal-700 px-3 py-2 text-white disabled:opacity-50"
+          className="rounded-md bg-teal-700 px-3 py-2 text-white disabled:opacity-10"
         >
           {loading ? 'Memproses...' : 'Masuk'}
         </button>
