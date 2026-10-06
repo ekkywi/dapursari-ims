@@ -57,6 +57,7 @@ pnpm dev
 | Web | http://localhost:3000 |
 | API | http://localhost:4000 |
 | Health check | http://localhost:4000/health |
+| API docs (Swagger) | http://localhost:4000/docs |
 
 ## Scripts
 
