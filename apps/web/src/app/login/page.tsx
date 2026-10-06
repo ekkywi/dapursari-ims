@@ -6,8 +6,6 @@ import type { LoginRequest, LoginResponse } from '@dapursari/types';
 import { setToken } from '@/lib/auth-storage';
 import { useRouter } from 'next/navigation';
 
-type LoginResult = Omit<LoginResponse, 'refreshToken'>;
-
 export default function LoginPage() {
   const router = useRouter();
   const [email, setEmail] = useState('');
@@ -21,7 +19,7 @@ export default function LoginPage() {
     setLoading(true);
     try {
       const body: LoginRequest = { email, password };
-      const result = await apiFetch<LoginResult>('/auth/login', {
+      const result = await apiFetch<LoginResponse>('/auth/login', {
         method: 'POST',
         body: JSON.stringify(body),
       });
@@ -57,7 +55,7 @@ export default function LoginPage() {
         <button
           type="submit"
           disabled={loading}
-          className="rounded-md bg-teal-700 px-3 py-2 text-white disabled:opacity-10"
+          className="rounded-md bg-teal-700 px-3 py-2 text-white disabled:opacity-50"
         >
           {loading ? 'Memproses...' : 'Masuk'}
         </button>

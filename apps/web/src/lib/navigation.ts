@@ -17,7 +17,9 @@ export function getNavForRole(role: UserRole): NavItem[] {
   return NAV_ITEMS.filter((item) => item.roles.includes(role));
 }
 
-export function canAccess(roles: UserRole, pathname: string): boolean {
+export function canAccess(role: UserRole, pathname: string): boolean {
   const item = NAV_ITEMS.find((i) => pathname === i.href || pathname.startsWith(`${i.href}/`));
-  return item ? item.roles.includes(roles) : false;
+  // Path not in nav (e.g. future Super Admin pages) — allow; backend still enforces roles.
+  if (!item) return true;
+  return item.roles.includes(role);
 }

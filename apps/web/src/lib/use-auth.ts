@@ -30,7 +30,12 @@ export function useRequiredAuth() {
       .finally(() => setLoading(false));
   }, [router]);
 
-  function logout() {
+  async function logout() {
+    try {
+      await apiFetch<{ message: string }>('/auth/logout', { method: 'POST' });
+    } catch {
+      // JWT is stateless — still clear local token even if the call fails.
+    }
     clearToken();
     router.replace('/login');
   }
