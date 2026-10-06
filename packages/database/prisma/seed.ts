@@ -9,7 +9,12 @@ async function main() {
 
   await prisma.user.upsert({
     where: { email },
-    update: {},
+    update: {
+      name: 'Super Admin',
+      passwordHash,
+      role: UserRole.SUPER_ADMIN,
+      isActive: true,
+    },
     create: {
       email,
       name: 'Super Admin',
@@ -19,7 +24,7 @@ async function main() {
     },
   });
 
-  console.log('Seeder Super Admin:', email);
+  console.log('Seeder Super Admin:', email, '(password: Admin123!)');
 
   // Modul 2 — master data gudang
   const categories = [
