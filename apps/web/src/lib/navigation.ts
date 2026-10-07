@@ -11,6 +11,7 @@ export const NAV_ITEMS: NavItem[] = [
   { label: 'Barang', href: '/gudang/barang', roles: GUDANG },
   { label: 'Stok Masuk', href: '/gudang/stok-masuk', roles: GUDANG },
   { label: 'Stok Gudang', href: '/gudang/stok', roles: GUDANG },
+  { label: 'Kelola User', href: '/admin/users', roles: [UserRole.SUPER_ADMIN] },
 ];
 
 export function getNavForRole(role: UserRole): NavItem[] {
