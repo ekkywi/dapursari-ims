@@ -39,7 +39,7 @@ export default function KelolaUserPage() {
       const updated = await apiFetch<ManagedUser>(`/users/${user.id}/deactivate`, {
         method: 'PATCH',
       });
-      setUsers((prev) => prev.map((u) => (u.id === updated.id ? updated : u)));
+      replaceUser(updated);
     } catch (err) {
       setActionError(errorMessage(err));
     } finally {
@@ -93,7 +93,7 @@ export default function KelolaUserPage() {
                 <select
                   value={u.role}
                   onChange={(e) => handleChangeRole(u, e.target.value as UserRole)}
-                  disabled={busyId === u.id || u.id === me.id}
+                  disabled={busyId === u.id || u.id === me.id || !u.isActive}
                   className="rounded-md border border-stone-300 px-2 py-1 text-sm disabled:opacity-50"
                 >
                   {Object.values(UserRole).map((r) => (
