@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { USER_ROLE_LABELS, UserRole } from '@dapursari/types';
 import { FormEvent, useState } from 'react';
 import Link from 'next/link';
+import { PasswordInput } from '@/components/password-input';
 
 export default function TambahUserPage() {
   const router = useRouter();
@@ -51,14 +52,12 @@ export default function TambahUserPage() {
           onChange={(e) => setEmail(e.target.value)}
           className="rounded-md border border-stone-300 ps-3 py-2"
         />
-        <input
-          type="password"
+        <PasswordInput
           required
           minLength={6}
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="rounded-md border border-stone-300 ps-3 py-2"
         />
         <select
           required

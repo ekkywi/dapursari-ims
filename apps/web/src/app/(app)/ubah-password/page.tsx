@@ -2,6 +2,7 @@
 
 import { useState, type FormEvent } from 'react';
 import { ApiError, apiFetch } from '@/lib/api';
+import { PasswordInput } from '@/components/password-input';
 
 export default function UbahPasswordPage() {
   const [oldPassword, setOldPassword] = useState('');
@@ -42,32 +43,26 @@ export default function UbahPasswordPage() {
     <div className="max-w-sm justify-center mx-auto flex flex-col">
       <h1 className="mb-4 text-2xl font-semibold">Ubah Password</h1>
       <form onSubmit={handleSubmit} className="flex flex-col gap-3">
-        <input
-          type="password"
+        <PasswordInput
           required
           minLength={6}
           placeholder="Password lama"
           value={oldPassword}
           onChange={(e) => setOldPassword(e.target.value)}
-          className="rounded-md border border-stone-300 ps-3 py-2"
         />
-        <input
-          type="password"
+        <PasswordInput
           required
           minLength={6}
           placeholder="Password baru"
           value={newPassword}
           onChange={(e) => setNewPassword(e.target.value)}
-          className="rounded-md border border-stone-300 ps-3 py-2"
         />
-        <input
-          type="password"
+        <PasswordInput
           required
           minLength={6}
           placeholder="Ulangi password baru"
           value={confirmNewPassword}
           onChange={(e) => setConfirmNewPassword(e.target.value)}
-          className="rounded-md border border-stone-300 ps-3 py-2"
         />
         {error && <p className="text-sm text-red-500">{error}</p>}
         {success && <p className="text-sm text-teal-700">{success}</p>}
