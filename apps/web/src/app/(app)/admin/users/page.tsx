@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { USER_ROLE_LABELS, UserRole } from '@dapursari/types';
 import { ApiError, apiFetch } from '@/lib/api';
 import { useUser } from '@/lib/auth-context';
+import Link from 'next/link';
 
 interface ManagedUser {
   id: string;
@@ -72,7 +73,15 @@ export default function KelolaUserPage() {
 
   return (
     <div>
-      <h1 className="mb-4 text-2xl font-semibold">Kelola User</h1>
+      <div className="mb-4 flex items-center gap-10">
+        <h1 className="text-2xl font-semibold">Kelola User</h1>
+        <Link
+          href="/admin/users/baru"
+          className="text-sm bg-teal-600 text-white hover:bg-teal-700 px-3 py-2 rounded-md"
+        >
+          + Tambah User
+        </Link>
+      </div>
       {actionError && <p className="mb-2 text-sm text-red-500">{actionError}</p>}
       <table className="w-full text-left text-sm">
         <thead>
