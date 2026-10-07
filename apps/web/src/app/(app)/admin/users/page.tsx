@@ -46,6 +46,26 @@ export default function KelolaUserPage() {
       setBusyId(null);
     }
   }
+  async function handleChangeRole(user: ManagedUser, role: UserRole) {
+    if (role === user.role) return;
+
+    setActionError(null);
+    setBusyId(user.id);
+    try {
+      const updated = await apiFetch<ManagedUser>(`/users/${user.id}/role`, {
+        method: 'PATCH',
+        body: JSON.stringify({ role }),
+      });
+      replaceUser(updated);
+    } catch (err) {
+      setActionError(errorMessage(err));
+    } finally {
+      setBusyId(null);
+    }
+  }
+  function replaceUser(updated: ManagedUser) {
+    setUsers((prev) => prev.map((u) => (u.id === updated.id ? updated : u)));
+  }
 
   if (loading) return <p>Memuat...</p>;
   if (loadError) return <p className="text-red-500">{loadError}</p>;
@@ -69,7 +89,20 @@ export default function KelolaUserPage() {
             <tr key={u.id} className="border-b border-stone-100">
               <td className="py-2">{u.name}</td>
               <td>{u.email}</td>
-              <td>{USER_ROLE_LABELS[u.role]}</td>
+              <td>
+                <select
+                  value={u.role}
+                  onChange={(e) => handleChangeRole(u, e.target.value as UserRole)}
+                  disabled={busyId === u.id || u.id === me.id}
+                  className="rounded-md border border-stone-300 px-2 py-1 text-sm disabled:opacity-50"
+                >
+                  {Object.values(UserRole).map((r) => (
+                    <option key={r} value={r}>
+                      {USER_ROLE_LABELS[r]}
+                    </option>
+                  ))}
+                </select>
+              </td>
               <td>{u.isActive ? 'Aktif' : 'Nonaktif'}</td>
               <td>
                 {u.isActive && u.id !== me.id && (
