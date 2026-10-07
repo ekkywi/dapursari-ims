@@ -51,6 +51,9 @@ export default function AppLayout({ children }: { children: ReactNode }) {
             <span className="text-sm text-stone-600">
               {user.name} · {USER_ROLE_LABELS[user.role]}
             </span>
+            <Link href="/ubah-password" className="text-sm text-teal-700 hover:text-teal-900">
+              Ubah Password
+            </Link>
             <button
               onClick={logout}
               className="rounded-md bg-stone-800 px-3 py-1.5 text-sm text-white hover:bg-stone-600"
