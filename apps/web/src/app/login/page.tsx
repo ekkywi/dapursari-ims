@@ -1,9 +1,9 @@
 'use client';
 
-import { useState, type FormEvent } from 'react';
+import { useEffect, useState, type FormEvent } from 'react';
 import { ApiError, apiFetch } from '@/lib/api';
 import type { LoginRequest, LoginResponse } from '@dapursari/types';
-import { setToken } from '@/lib/auth-storage';
+import { setToken, getToken } from '@/lib/auth-storage';
 import { useRouter } from 'next/navigation';
 import { PasswordInput } from '@/components/password-input';
 
@@ -13,6 +13,10 @@ export default function LoginPage() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (getToken()) router.replace('/dashboard');
+  }, [router]);
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
