@@ -11,6 +11,7 @@ export const NAV_ITEMS: NavItem[] = [
   { label: 'Barang', href: '/gudang/barang', roles: GUDANG },
   { label: 'Stok Masuk', href: '/gudang/stok-masuk', roles: GUDANG },
   { label: 'Stok Gudang', href: '/gudang/stok', roles: GUDANG },
+  { label: 'Kelola User', href: '/admin/users', roles: [UserRole.SUPER_ADMIN] },
 ];
 
 export function getNavForRole(role: UserRole): NavItem[] {
@@ -19,7 +20,7 @@ export function getNavForRole(role: UserRole): NavItem[] {
 
 export function canAccess(role: UserRole, pathname: string): boolean {
   const item = NAV_ITEMS.find((i) => pathname === i.href || pathname.startsWith(`${i.href}/`));
-  // Path not in nav (e.g. future Super Admin pages) — allow; backend still enforces roles.
+  // Path not in nav (e.g. /ubah-password) — allow; backend still enforces roles.
   if (!item) return true;
   return item.roles.includes(role);
 }
